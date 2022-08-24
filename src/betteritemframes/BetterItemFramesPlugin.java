@@ -36,9 +36,11 @@ public class BetterItemFramesPlugin extends JavaPlugin implements Listener {
 		if (event.isCancelled()) return;
 		if (!event.getRightClicked().getType().toString().contains("ITEM_FRAME")) return;
 
-		if (event.getPlayer().isSneaking() || !event.getHand().equals(EquipmentSlot.HAND)) return;
+		if (event.getPlayer().isSneaking()) return;
 
 		event.setCancelled(true);
+
+		if (!event.getHand().equals(EquipmentSlot.HAND)) return;
 
 		Block block = event.getRightClicked().getLocation().getBlock().getRelative(event.getRightClicked().getFacing().getOppositeFace());
 		Player player = event.getPlayer();
@@ -74,9 +76,11 @@ public class BetterItemFramesPlugin extends JavaPlugin implements Listener {
 		if (!itemFrame.getItem().getType().equals(Material.AIR) && itemFrame.isVisible() && !player.isSneaking()) {
 			event.setCancelled(true);
 			itemFrame.setVisible(false);
+			itemFrameEntity.getWorld().playSound(itemFrameEntity.getLocation(), Sound.ENTITY_SHULKER_CLOSE, 0.7f, 0.7f);
 		} else if (!itemFrame.isVisible()) {
 			event.setCancelled(true);
 			itemFrame.setVisible(true);
+			itemFrameEntity.getWorld().playSound(itemFrameEntity.getLocation(), Sound.ENTITY_SHULKER_OPEN, 0.7f, 0.7f);
 		}
 
 	}
