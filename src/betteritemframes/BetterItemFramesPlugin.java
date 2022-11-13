@@ -74,7 +74,8 @@ public class BetterItemFramesPlugin extends JavaPlugin implements Listener {
 	private void onInventoryClose(InventoryCloseEvent event) {
 		if (event.getInventory().getType().equals(InventoryType.ENDER_CHEST)) {
 			Player player = (Player) event.getPlayer();
-			Block block = enderChest.get(player.getUniqueId()).getBlock();
+			Block block = null;
+			if (enderChest.get(player.getUniqueId()) != null) block = enderChest.get(player.getUniqueId()).getBlock();
 			if (block != null && block.getType().equals(Material.ENDER_CHEST)) {
 				enderChest.remove(player.getUniqueId());
 				Lidded enderchest = (Lidded) block.getState();
